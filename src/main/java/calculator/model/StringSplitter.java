@@ -1,26 +1,21 @@
 package calculator.model;
 
-import calculator.util.DelimiterUtils;
-
-import static calculator.util.DelimiterConstants.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringSplitter {
 
-    public static String[] splitByDelimiter(String input) {
-        if (DelimiterUtils.isCustomDelimiterInput(input)) {
-            String customDelimiter = DelimiterUtils.extractCustomDelimiter(input);
-            return splitByCustomDelimiter(input, customDelimiter);
+    public static List<Integer> split(ParsedInput parsedInput) {
+        List<Integer> list = new ArrayList<>();
+        String numbersWithDelimiter = parsedInput.getNumbersWithDelimiter();
+        String delimiterRegex = parsedInput.getDelimiterRegex();
+
+        String[] numbers = numbersWithDelimiter.split(delimiterRegex);
+        for (String number : numbers) {
+            if (!number.isEmpty()) {
+                list.add(Integer.valueOf(number));
+            }
         }
-        return splitByDefaultDelimiters(input);
-    }
-
-    private static String[] splitByCustomDelimiter(String input, String delimiter) {
-        String numbers = input.substring(input.indexOf(CUSTOM_DELIMITER_SUFFIX) +
-                CUSTOM_DELIMITER_SUFFIX.length());
-        return numbers.split(delimiter);
-    }
-
-    private static String[] splitByDefaultDelimiters(String input) {
-        return input.split(DEFAULT_DELIMITER_REGEX);
+        return list;
     }
 }

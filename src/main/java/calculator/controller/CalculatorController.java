@@ -1,21 +1,24 @@
 package calculator.controller;
 
-import calculator.model.InputValidator;
-import calculator.model.StringCalculator;
-import calculator.model.StringSplitter;
+import calculator.model.*;
 import calculator.view.InputView;
 import calculator.view.OutputView;
+
+import java.util.List;
 
 public class CalculatorController {
 
     public void run() {
         String input = InputView.getInput();
 
-        InputValidator.validate(input);
-        String[] stringNumbers = StringSplitter.splitByDelimiter(input);
+        Validator validator = ValidatorFactory.createValidator(input);
+        ParsedInput parsedInput = validator.validate(input);
 
-        int result = StringCalculator.calculate(stringNumbers);
+        List<Integer> numbers = StringSplitter.split(parsedInput);
+
+        int result = Calculator.calculate(numbers);
         OutputView.printResult(result);
 
     }
 }
+
