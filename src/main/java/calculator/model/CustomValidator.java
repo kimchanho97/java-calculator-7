@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class CustomValidator implements Validator {
 
     @Override
-    public ParsedInput validate(String input) {
+    public ValidatedInput validate(String input) {
         Matcher matcher = Pattern.compile(CUSTOM_DELIMITER_EXTRACTION_REGEX).matcher(input);
         matcher.matches();
 
@@ -23,7 +23,7 @@ public class CustomValidator implements Validator {
 
         NumberValidator.validateNumbers(numbers);
 
-        return new ParsedInput(delimiterRegex, numbersWithDelimiter);
+        return new ValidatedInput(delimiterRegex, numbersWithDelimiter);
     }
 
     private String buildDelimiterRegex(String delimiter) {

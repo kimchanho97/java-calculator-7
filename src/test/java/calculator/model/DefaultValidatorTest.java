@@ -1,11 +1,11 @@
 package calculator.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import calculator.constant.ErrorMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DefaultValidatorTest {
 
@@ -16,10 +16,10 @@ class DefaultValidatorTest {
         String validDefaultString = "1,2:3";
 
         // when
-        ParsedInput parsedInput = new DefaultValidator().validate(validDefaultString);
+        ValidatedInput validatedInput = new DefaultValidator().validate(validDefaultString);
 
         //then
-        assertEquals(parsedInput.getNumbersWithDelimiter(), validDefaultString);
+        assertEquals(validatedInput.getNumbersWithDelimiter(), validDefaultString);
     }
 
     @Test
@@ -27,13 +27,13 @@ class DefaultValidatorTest {
     void 구분자_사이_빈_문자열_검증() {
         String inputString1 = "";
 
-        ParsedInput result1 = new DefaultValidator().validate(inputString1);
+        ValidatedInput result1 = new DefaultValidator().validate(inputString1);
 
         assertEquals(result1.getNumbersWithDelimiter(), inputString1);
 
         String inputString2 = "1:,,2";
 
-        ParsedInput result2 = new DefaultValidator().validate(inputString2);
+        ValidatedInput result2 = new DefaultValidator().validate(inputString2);
 
         assertEquals(result2.getNumbersWithDelimiter(), inputString2);
     }
