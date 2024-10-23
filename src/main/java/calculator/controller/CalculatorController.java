@@ -18,7 +18,7 @@ public class CalculatorController {
 
         List<Integer> numbers = validatedInput.extractNumbers();
 
-        int result = Calculator.calculate(numbers);
+        int result = Calculator.plus(numbers);
         OutputView.printResult(result);
     }
 }
